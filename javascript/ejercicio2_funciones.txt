@@ -1,0 +1,67 @@
+// ----------- COMENTARIO 1, ESTO DENTRO DEL METODO "controles" --------
+// ---------------------------------------------------------------------
+
+        var p = this.entity.p;
+
+		// de manera aleatoria tratamos de cambiar direcciones
+		if (Math.random() < p.porcentajeCambio) {
+			this.cambiarEnMovimiento();
+		}
+
+		//incrementamos la velocidad
+		//en funcion de la direccion
+		switch(p.direccion) {
+			case "izquierda":
+				p.vx = -p.velocidad;
+				break;
+			case "derecha":
+				p.vx = p.velocidad;
+				break;
+			case "arriba":
+				p.vy = -p.velocidad;
+				break;
+			case "abajo":
+				p.vy = p.velocidad;
+				break;
+		}
+
+
+// ----------- COMENTARIO 2, ESTO DENTRO DEL METODO "cambiarEnMovimiento" --------
+// -------------------------------------------------------------------------------
+
+        var p = this.entity.p;
+		//si se esta moviendo sobre el eje y
+		if (p.vy != 0 && p.vx == 0) {
+			//tratamos de movernos sobre el eje x
+			p.direccion = Math.random() < 0.5 ? 'izquierda' : 'derecha';
+
+			//si se esta moviendo sobre el eje x
+		} else if (p.vx != 0 && p.vy == 0) {
+			//tratamos de movernos sobre el eje y
+			p.direccion = Math.random() < 0.5 ? 'arriba' : 'abajo';
+		}
+
+
+
+
+// ----------- COMENTARIO 3, ESTO DENTRO DEL METODO "cambiarEnAtasco" ------------
+// -------------------------------------------------------------------------------
+
+        var p = this.entity.p;
+		//si el enemigo se atoro
+		//su velocidad es cero en X y Y
+		if (p.vx == 0 && p.vy == 0) {
+			
+			//la propiedad normalY de quintus es 1(arriba) o -1(abajo)
+			if (colision.normalY) {
+				
+				//intenamos salir del atasco moviendonos a la derecha o izquierda
+				p.direccion = Math.random() < 0.5 ? 'izquierda' : 'derecha';
+				
+			//la propiedad normalX de quintus es 1(izquierda) o -1(derecha)					
+			} else if (colision.normalX) {
+				
+				//intenamos salir del atasco moviendonos hacia arriba o abajo
+				p.direccion = Math.random() < 0.5 ? 'arriba' : 'abajo';
+			}
+		}
